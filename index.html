@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>找到属于你的壁纸</title>
+<style>
+:root{--bg:#f6f1ec;--fg:#2b2622;--mut:#8a7f76;--card:#fffaf5;--line:#e4d9ce;--ac:#b5654a;--acfg:#fff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1d1a18;--fg:#f0e8e0;--mut:#9a8f85;--card:#272321;--line:#3a3430;--ac:#e09a7f;--acfg:#1d1a18}}
+:root[data-theme="dark"]{--bg:#1d1a18;--fg:#f0e8e0;--mut:#9a8f85;--card:#272321;--line:#3a3430;--ac:#e09a7f;--acfg:#1d1a18}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:"Songti SC","Noto Serif SC","STSong",serif;line-height:1.6}
+main{max-width:480px;margin:0 auto;padding:24px 20px 48px}
+.bar{height:3px;background:var(--line);margin-bottom:28px}.bar i{display:block;height:100%;background:var(--ac);width:0;transition:width .3s}
+.tag{color:var(--mut);font-size:14px;margin:0 0 6px}
+h1{font-size:24px;line-height:1.4;margin:0 0 22px;font-weight:700}
+.opt{display:block;width:100%;text-align:left;font:inherit;font-size:16px;color:var(--fg);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:0 0 10px;cursor:pointer}
+.opt:active,.opt:focus-visible{border-color:var(--ac);outline:2px solid var(--ac);outline-offset:1px}
+.back{background:none;border:0;color:var(--mut);font:inherit;font-size:14px;padding:8px 0;cursor:pointer}
+.btn{font:inherit;background:var(--ac);color:var(--acfg);border:0;border-radius:10px;padding:12px 20px;font-size:16px;cursor:pointer}
+.res{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px;margin:0 0 16px}
+.res b{font-size:20px}
+.sc{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}.sc span{font-size:13px;border:1px solid var(--line);border-radius:6px;padding:2px 8px}
+.ph{width:min(100%,calc(68vh*9/19.5));aspect-ratio:9/19.5;margin:0 auto 18px;border-radius:18px;overflow:hidden;background:var(--card);border:1px solid var(--line)}.ph img{width:100%;height:100%;object-fit:cover;display:block}.btn2{font:inherit;background:none;color:var(--fg);border:1px solid var(--line);border-radius:10px;padding:11px 18px;font-size:16px;cursor:pointer}code{font-family:ui-monospace,Menlo,monospace;font-size:14px;word-break:break-all}
+.dim{color:var(--mut);font-size:14px}
+</style></head><body><main>
+<div class="bar"><i id="p"></i></div>
+<div id="v"></div>
+</main>
+<script>
+var T={window:"午后窗边",forest:"森林呼吸",night:"深夜城市",candy:"糖果气泡",star:"星海幻想",sunset:"日落远方"};
+var K=["window","forest","night","candy","star","sunset"];
+var Q=[
+{k:"心情",t:"今天最想要的感觉？",s:1,o:[["被温柔包住",{window:2,forest:1}],["放空，什么都不想",{forest:2,window:1}],["一个人安静，有点酷",{night:2}],["开心到想大叫",{candy:2,sunset:1}],["做一个不想醒的梦",{star:2}],["想立刻出发",{sunset:2}]]},
+{k:"心情",t:"哪种光线让你最舒服？",o:[["傍晚的暖黄灯光",{tone:"warm"}],["阴天窗边的柔和冷光",{tone:"cool"}],["明亮鲜艳，像刚打开的糖果盒",{tone:"bright"}]]},
+{k:"性格",t:"朋友临时约你出门，第一反应？",s:1,o:[["好呀，越热闹越好",{candy:2}],["说走就走，去哪都行",{sunset:2}],["去可以，但要小而安静的地方",{window:2}],["去可以，但想去户外",{forest:2}],["晚点吧，我更习惯夜里出门",{night:2}],["我想在家，已经有自己的世界了",{star:2}]]},
+{k:"性格",t:"你的书桌（或房间）更接近哪种？",o:[["整齐有序，只留必需的东西",{ver:"clean"}],["东西不多，但每样都精挑细选",{ver:"clean"}],["东西不少，但各有各的位置",{ver:"rich"}],["满满当当，每样东西都有故事",{ver:"rich"}]]},
+{k:"爱好",t:"突然多出一个没有安排的下午，你最可能？",s:1,o:[["找个舒服的角落，慢慢做一件小事",{window:2}],["去有树和风的地方走走",{forest:2}],["一个人出门晃到天黑",{night:2}],["去逛街，或试一家新店",{candy:2}],["钻进别人创造的世界里",{star:2}],["去运动，或者往远处走",{sunset:2}]]},
+{k:"爱好",t:"哪个小时刻最让你觉得“这一刻真好”？",o:[["抱着软乎乎的东西，窝着不动",{window:1,el:"猫"}],["翻开一本书，读到停不下来",{window:1,star:1,el:"书"}],["蹲下来看一株小植物长出新叶",{forest:1,el:"植物"}],["戴上耳机，全世界只剩音乐",{night:1,el:"耳机"}],["咬下第一口喜欢的甜点",{candy:1,el:"甜点"}],["抬头发现今晚的星星特别多",{star:1,el:"星星"}],["按下快门，留住刚好的光",{night:1,candy:1,el:"相机"}],["看着船慢慢驶向海平线",{sunset:1,el:"帆船"}],["这些都不太像我",{none:1}]]},
+{k:"性格",t:"心情不好时，你怎么让自己好起来？",s:1,o:[["找朋友说，或者吃点甜的",{candy:2}],["盖着毯子，把自己团起来",{window:2}],["去外面待着，让风和绿色慢慢安抚",{forest:2}],["夜里走一走，把事想完",{night:2}],["想象点别的，让脑子去别的地方",{star:2}],["跑一跑，或者直接去远处",{sunset:2}]]}
+];
+// 丰富版图库：类型_色调 -> 元素
+var R={window_warm:"猫+咖啡杯",window_cool:"书+手账",window_bright:"猫+书",forest_warm:"植物+帐篷",forest_cool:"植物+鹿",forest_bright:"植物+小径",night_warm:"耳机+唱片",night_cool:"相机+电影票",night_bright:"耳机+相机",candy_warm:"甜点+气球",candy_cool:"相机+甜点",candy_bright:"星星贴纸+气球",star_warm:"星星+月亮",star_cool:"书+星星",star_bright:"星星+游戏机",sunset_warm:"帆船+冲浪板",sunset_cool:"帆船+背包",sunset_bright:"公路+背包"};
+var TN={warm:"暖",cool:"冷",bright:"亮"};
+var i=0,A=[],ord=[];
+function shuf(a){a=a.slice();for(var n=a.length-1;n>0;n--){var j=Math.floor(Math.random()*(n+1));var t=a[n];a[n]=a[j];a[j]=t}return a}
+var V=document.getElementById("v"),P=document.getElementById("p");
+function show(){
+ if(i>=Q.length)return result();
+ var q=Q[i];P.style.width=(i/Q.length*100)+"%";
+ if(!ord[i]){var ix=q.o.map(function(_,n){return n});ord[i]=q.s?shuf(ix):ix}
+ var h='<p class="tag">'+(i+1)+' / '+Q.length+'　'+q.k+'</p><h1>'+q.t+'</h1>';
+ ord[i].forEach(function(n){h+='<button class="opt" data-n="'+n+'">'+q.o[n][0]+'</button>'});
+ if(i>0)h+='<button class="back" id="b">上一题</button>';
+ V.innerHTML=h;
+ V.querySelectorAll(".opt").forEach(function(b){b.onclick=function(){A[i]=+b.dataset.n;i++;show()}});
+ var bb=document.getElementById("b");if(bb)bb.onclick=function(){i--;show()};
+}
+var DB=[["window_warm_clean_01",""],["window_warm_clean_02",""],["window_warm_clean_03",""],["window_warm_clean_04",""],["window_cool_clean_01",""],["window_cool_clean_02",""],["window_cool_clean_03",""],["window_cool_clean_04",""],["window_bright_clean_01",""],["window_bright_clean_02",""],["window_warm_rich_01","猫"],["window_warm_rich_02","猫"],["window_warm_rich_03","猫"],["window_warm_rich_04","猫"],["window_cool_rich_01","书"],["window_cool_rich_02","书"],["window_cool_rich_03","书"],["window_bright_rich_01","猫、书"],["window_bright_rich_02","猫、书"],["window_bright_rich_03","猫、书"],["window_bright_rich_04","猫、书"],["forest_warm_clean_01",""],["forest_warm_clean_02",""],["forest_warm_clean_03",""],["forest_warm_clean_04",""],["forest_cool_clean_01",""],["forest_cool_clean_02",""],["forest_cool_clean_03",""],["forest_cool_clean_04",""],["forest_bright_clean_01",""],["forest_bright_clean_02",""],["forest_bright_clean_03",""],["forest_bright_clean_04",""],["forest_bright_clean_05",""],["forest_warm_rich_01","植物"],["forest_warm_rich_02","植物"],["forest_warm_rich_03","植物"],["forest_warm_rich_04","植物"],["forest_cool_rich_01","植物"],["forest_cool_rich_02","植物"],["forest_cool_rich_03","植物"],["forest_cool_rich_04","植物"],["forest_bright_rich_01","植物"],["forest_bright_rich_02","植物"],["forest_bright_rich_03","植物"],["forest_bright_rich_04","植物"],["night_warm_clean_01",""],["night_warm_clean_02",""],["night_warm_clean_03",""],["night_warm_clean_04",""],["night_cool_clean_01",""],["night_cool_clean_02",""],["night_cool_clean_03",""],["night_cool_clean_04",""],["night_cool_clean_05",""],["night_cool_clean_06",""],["night_bright_clean_01",""],["night_bright_clean_02",""],["night_bright_clean_03",""],["night_bright_clean_04",""],["night_warm_rich_01","耳机"],["night_warm_rich_02","耳机"],["night_warm_rich_03","耳机"],["night_warm_rich_04","耳机"],["night_cool_rich_01","相机"],["night_cool_rich_02","相机"],["night_cool_rich_03","相机"],["night_cool_rich_04","相机"],["night_bright_rich_01","耳机、相机"],["night_bright_rich_02","耳机、相机"],["night_bright_rich_03","耳机、相机"],["night_bright_rich_04","耳机、相机"],["candy_warm_clean_01",""],["candy_warm_clean_02",""],["candy_warm_clean_03",""],["candy_warm_clean_04",""],["candy_cool_clean_01",""],["candy_cool_clean_02",""],["candy_cool_clean_03",""],["candy_bright_clean_01",""],["candy_bright_clean_02",""],["candy_bright_clean_03",""],["candy_bright_clean_04",""],["candy_warm_rich_01","甜点"],["candy_warm_rich_02","甜点"],["candy_warm_rich_03","甜点"],["candy_warm_rich_04","甜点"],["candy_cool_rich_01","甜点、相机"],["candy_cool_rich_02","甜点、相机"],["candy_bright_rich_01","星星"],["candy_bright_rich_02","星星"],["candy_bright_rich_03","星星"],["candy_bright_rich_04","星星"],["candy_bright_rich_05","星星"],["star_warm_clean_01",""],["star_warm_clean_02",""],["star_warm_clean_03",""],["star_cool_clean_01",""],["star_cool_clean_02",""],["star_cool_clean_03",""],["star_cool_clean_04",""],["star_bright_clean_01",""],["star_bright_clean_02",""],["star_warm_rich_01","星星"],["star_warm_rich_02","星星"],["star_warm_rich_03","星星"],["star_warm_rich_04","星星"],["star_cool_rich_01","书、星星"],["star_cool_rich_02","书、星星"],["star_cool_rich_03","书、星星"],["star_cool_rich_04","书、星星"],["star_bright_rich_01","星星"],["star_bright_rich_02","星星"],["sunset_warm_clean_01",""],["sunset_warm_clean_02",""],["sunset_warm_clean_03",""],["sunset_warm_clean_04",""],["sunset_cool_clean_01",""],["sunset_cool_clean_02",""],["sunset_cool_clean_03",""],["sunset_cool_clean_04",""],["sunset_bright_clean_01",""],["sunset_bright_clean_02",""],["sunset_bright_clean_03",""],["sunset_warm_rich_01","帆船"],["sunset_warm_rich_02","帆船"],["sunset_warm_rich_03","帆船"],["sunset_warm_rich_04","帆船"],["sunset_cool_rich_01",""],["sunset_cool_rich_02",""],["sunset_cool_rich_03",""],["sunset_cool_rich_04",""],["sunset_bright_rich_01",""],["sunset_bright_rich_02",""],["sunset_bright_rich_03",""]];
+function pick(b,t,v,el){
+ var pre=b+"_"+t+"_"+v+"_",c=DB.filter(function(r){return r[0].indexOf(pre)===0}),m=c;
+ if(v==="rich"&&el){var x=c.filter(function(r){return r[1].indexOf(el)>-1});if(x.length)m=x}
+ var seen=[];try{seen=JSON.parse(localStorage.getItem("seen")||"[]")}catch(e){}
+ var nw=function(a){return a.filter(function(r){return seen.indexOf(r[0])<0})};
+ var f=nw(m);if(!f.length)f=nw(c);if(!f.length)f=m;
+ var p=f[Math.floor(Math.random()*f.length)][0];
+ try{seen.push(p);localStorage.setItem("seen",JSON.stringify(seen))}catch(e){}
+ return p}
+function result(){
+ P.style.width="100%";
+ var S={},sub={};K.forEach(function(k){S[k]=0;sub[k]={}});
+ var tone="warm",ver="clean",el=null,none=false;
+ A.forEach(function(n,qi){var o=Q[qi].o[n][1];
+  K.forEach(function(k){if(o[k]){S[k]+=o[k];sub[k][qi]=o[k]}});
+  if(o.tone)tone=o.tone;if(o.ver)ver=o.ver;if(o.el)el=o.el;if(o.none)none=true});
+ var best=K.slice().sort(function(a,b){
+  return S[b]-S[a]||(sub[b][4]||0)-(sub[a][4]||0)||(sub[b][5]||0)-(sub[a][5]||0)||(sub[b][0]||0)-(sub[a][0]||0)})[0];
+ if(none)ver="clean";
+ var name=pick(best,tone,ver,el);
+ V.innerHTML='<p class="tag">你的结果</p><h1>'+T[best]+'</h1><div class="ph"><img id="im" alt=""></div>'+
+ '<p><button class="btn" id="sv">保存图片</button> <button class="btn2" id="r">再测一次</button></p>'+
+ '<p class="dim">如果点保存后打开了新页面，长按图片选择“保存”即可。</p>';
+ var im=document.getElementById("im");
+ im.onerror=function(){im.onerror=function(){im.src="wallpapers/"+name+".jpg"};im.src="wallpapers/"+name+".png"};
+ im.src="preview/"+name+".jpg";
+ document.getElementById("sv").onclick=function(){
+  var go=function(ext){var a=document.createElement("a");a.href="wallpapers/"+name+"."+ext;a.download=name+"."+ext;document.body.appendChild(a);a.click();a.remove()};
+  fetch("wallpapers/"+name+".png",{method:"HEAD"}).then(function(r){go(r.ok?"png":"jpg")}).catch(function(){go("jpg")})};
+ document.getElementById("r").onclick=function(){i=0;A=[];ord=[];show()};
+}
+show();
+</script></body></html>
