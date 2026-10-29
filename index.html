@@ -21,7 +21,7 @@ h1{font-size:24px;line-height:1.4;margin:0 0 22px;font-weight:700}
 .sc{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}.sc span{font-size:13px;border:1px solid var(--line);border-radius:6px;padding:2px 8px}
 .ph{width:min(100%,calc(68vh*9/19.5));aspect-ratio:9/19.5;margin:0 auto 18px;border-radius:18px;overflow:hidden;background:var(--card);border:1px solid var(--line)}.ph img{width:100%;height:100%;object-fit:cover;display:block}.btn2{font:inherit;background:none;color:var(--fg);border:1px solid var(--line);border-radius:10px;padding:11px 18px;font-size:16px;cursor:pointer}code{font-family:ui-monospace,Menlo,monospace;font-size:14px;word-break:break-all}
 .dim{color:var(--mut);font-size:14px}
-</style></head><body><main>
+.inp{width:100%;font:inherit;font-size:18px;letter-spacing:2px;text-align:center;color:var(--fg);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;margin:0 0 12px}</style></head><body><main>
 <div class="bar"><i id="p"></i></div>
 <div id="v"></div>
 </main>
@@ -75,6 +75,14 @@ function result(){
   return S[b]-S[a]||(sub[b][4]||0)-(sub[a][4]||0)||(sub[b][5]||0)-(sub[a][5]||0)||(sub[b][0]||0)-(sub[a][0]||0)})[0];
  if(none)ver="clean";
  var name=pick(best,tone,ver,el);
+ saveRes(name,best);render(name,best);
+}
+
+var HS=["c1c973969030e704", "dee28dd3e1529dd0", "3fc9ec000799a2a2", "61cf3fbd40e3bb0f", "4deb26d7d8f583da", "be78e3dfff54fe54", "b9556cfab4bd2eec", "07b8a259a4a698af", "f36ceee53a06e4e2", "e9b4983c9d282e91", "3af41511326d1186", "5792b3dd99f63046", "4a14fbe0a82f8979", "db4a83e6e0d0ffa9", "2ac5e7ded4fe8cf1", "f8a421fd73a71cab", "27cd92e9e7fe0907", "4cfb6f83d3607a82", "fd14cc4e7ad78ce0", "b12eb6724482f6f7", "9f0eb8072a9c5525", "a811217840186d3a", "c753caa387ccf264", "71b655358c39ce53", "95c6a06133e32964", "2d19bb6ffd6dc745", "3147affc0cfc7d39", "3778ae234c7f2621", "50ca5fca28746a78", "790c12df548082f5", "5483c2cb6f08ce55", "0b5d1db7a040e27f", "5d581a8079d75578", "5d90064f4f810707", "3ba9386900e14f2d", "078aacd695c2c81b", "79f912aada2370b0", "c46180b9afbef5ea", "f4313752d665d799", "7eaea54d7ba2976a", "cde7fcb1485c5e8e", "87724b5e75053576", "9deb5a78fdf20770", "79731c8c6a3a44e3", "975c1d468547fc49", "07aa773f300e5581", "fba6ceab03121302", "aa452499faee10fa", "d769ab4fa788031a", "1b44468bebb6b1dc", "d9dcd77bc3c74b7e", "7deca6a3000e7ac9", "3880639444331e2e", "86068f206bab470c", "b447ba644ebcf11f", "b0058ba0832011fe", "82042fdc0ee0cc4e", "e10d6a03e9cbb4b1", "356abc8f205fbdb7", "88b37bcad583834c", "ea902a3adb6a9324", "b114cfa5fca43978", "2e44959117d1b85e", "34a3837b94ef51b3", "9e27cccb22a6de0e", "e0a248964519e961", "fecceb51c047eabc", "39899bb4b266c64b", "c149a71c7e2dfd12", "18fcd3c066e88692", "61f22122d4fc855e", "6a2d5a9d273f3e3c", "efe856a579d01838", "e03d6842ace46154", "6320632a77699608", "11ff6c957cc4f940", "0386ff1924d40a57", "142c59320d0b1975", "409e16ae23721db0", "70b55d7243351f9e", "59a321ff9bb72feb", "a992f0d8102e9e0e", "b61793788d9c72f2", "61ed153a53ca4234", "cf7dcd2e13294b0c", "cc19978070ac7de7", "45da05919e22a57a", "0879cc79039d916f", "f3c690bcd4dc7325", "5917987a20afba6b", "3cda627d7bcf9ecf", "7d4047ce242ea6e8", "e6ab4d3b45a8a96a", "0d3c5629f8c5dac3", "cea8fab1741a6750", "5c33bfdd1a9410d4", "10ca8a14cba98d0e", "a9af1967aad3cd1d", "e0150bead796eb18", "f55c1c2e2d399098", "184b222cefcc1bde", "521fdfadfbfca783", "86dd8e38217bb0c1", "31e9bb4a9518a0db", "a969df209f36cf41", "277bbf816e3d07d1", "f5db66e51c899faf", "fcc9ddf96a47d37b", "4b5e3e0dcaa400ef", "fc7af3dac1dca95a", "ddccc4316072dc65", "1e4aef653875e468", "15fa79797df06726", "b7e00e776857b219", "093fd4c0c489a624", "4fe0b224067178a3", "bd8ee1b1fdfb45b1", "ca4ff28bc80b9927", "ad64dc4b0bb42f97", "c0eff4c73cc5ef81", "8c9282571a50d81c", "6d258d54852dbf77", "0ff07150249bb3c0", "61ef62e8c8993933", "a94d6f8c75e0a459", "0f50a4eab5a238a0", "cf4a53538967c3d9", "903f80bced5785e5", "651eb994782ef273", "d7b55c2cbcb8183c", "a91a29027a1bddd6", "946688602eade658", "7d2fec7848283cda", "32e31ebd804bb67d", "5dc16bf28a4b0391", "1aa52309c79492e4", "cefea6ebb45e7904", "b5152125ae9c0cc7", "9aed7786b6095b99", "74c3bbd36645f90f", "48eb17eeb86500c3", "0227d82113918b56", "67b706b37ed857bb", "70a9d8edbc7126ac", "ea692137ab72afb4", "dd612881c3a4bef0", "d005781888c12375", "e2dc9b1c4efd16c3", "dad6c09783ce92f8", "8a98d338f52d8768", "c7527081c6f60178", "f2116b73fe2866be", "ccc342e95c03a9de", "eb9e934f7c15dbcb", "ff681321beaab6ad", "f7241b351b3f157a", "9fa3c4731427721f", "d8c5f22d66e0d9c5", "e390ff4c25decc14", "b1330c857dad382d", "15fab8ff09829298", "e1b101d7c6e48ba1", "1a977b649d2f6e10", "cbae800902c0735f", "d030d13ff0096198", "3d4efcad6057d163", "13dba6341ae9c7a3", "3f775ab2bcf9061e", "84992396073f024d", "1b86ff41f7cc53c0", "312feabe8bcfd991", "aedfbd54843ff661", "358abc3c941b817f", "b0514d732ca7863e", "2224f75c766efa08", "cb44d524f410f760", "e06287e4e877f179", "dc5c7a8834cb2177", "b0f6126da8f4a8de", "44f2020434528a70", "763043f99bd2ed04", "542c72698d13964b", "8e43aa728a59d4d9", "e810ac8e57c9fd65", "e5286ff5cc6b982f", "60d46c183308717e", "631ada9a8861e902", "638155a394f620ca", "abe48b5abe604891", "c26c74722626d23d", "d55c8946445de5e0", "b31886768bd35c13", "edde7fc3185a282e", "054871a78015eef8", "a788e213c3725acb", "6e50d984375a1b4d", "57ae4b6c8bfc4a99", "e137712aa1da7d01", "5014befe6a64fd58", "e52594a6c2ce3fe2", "2950cc4a3bf699b1", "981ad5d582d92b8e", "b8e70573398967c8", "44f48ad21d98966f", "9d2fea0d4936c4bf", "11f6cc7e762c8760", "fcd50ee3dc631d37", "828f357cce45d6d6", "cf116006720b6405", "07ebcb8928786972", "106ffc5a2f96f93a", "23f031994a0d5f86", "fef6a8f5d0ac0960", "351982742e8af283", "d9dffc29a1eff7f6", "0ed76d7c18aab7b1", "260a6c76d6aaac2e", "244a5698e42e5f71", "41d82e1634143709", "62a7ac1493c95a7f", "80070c34b68182ba", "61aec8eafb05abc3", "5cf741e9d921eb01", "e0a4bec8a3fd17aa", "7645594abf61cb56", "0691fb8467a40054", "23e45b45fc379372", "feef391460b1a368", "0b374b66f306c485", "f2982fc795941ba3", "15d2eb5677e2aa55", "c3c590abf5cccaaf", "831f3ca4bc7fdebd", "1fa823daec3f4dbb", "3d17af1f332d11c2", "75dcb980dcba2e53", "b4a5f8a96de21887", "c08f545e42557bc6", "67eefee294f05479", "d2fd70d0c96da3bc", "2853cf7b29b443dc", "47ded9649d594764", "d951be7436971929", "55c741deaa41a2d8", "ecdbd1c2fc8e1542", "e11b64afa3c1027c", "aa2af5ea9c470a59", "6bcb6a23ca9bf270", "815dcba646793960", "ef18857573efc8ff", "19a41c5fcfc9fe6d", "9a691d076d2c31d4", "295f9d94c477a19f", "709f93e35340dd42", "fd44ab26df7ee408", "1f3bc698044f6bb2", "6c20b3079bf962ef", "be741af4be0bef84", "4975b807aa67e548", "6d4d811c687b9c34", "d3880cccf1662712", "b1f2f8c312fc35a2", "8b44f69fb5efeed6", "cc89af6afcb77ad3", "7678217a10b5aeb6", "9d5994257bfc6e3c", "01f599deac4ee48d", "c4c9e590269197de", "49efd4a3f1aca1f7", "01f50ea8fd134a96", "8f52215c8feaf923", "619d84defaf52106", "b97ce8013ae3efe3", "bc5b89b85a643009", "63176d577a608114", "c559661cf364f896", "f1034ce1e0028c33", "13a2705cd72fbf52", "e31c3640586f538b", "ac97a0c0fae13edc", "e9e3b043855570c8", "ef52ed4b8cf4ff67", "20f5e1939dc4e851", "5df8961990bfed20", "3d61190da9ea177c", "606dcecd38f39379", "0cfffe55065593b9", "88ab32f98b73841c", "3e00d0e8b4bbf68f", "47e46d70b3151d1a", "b9ef194e217fde07", "8c9e05401e93e138", "8bbc76fc0841121a", "46cdb9112afb5ae6", "2cfc96bd2d244b70", "b64eddf6025b3ada", "c3e9b4ca9e03870e", "cdd0ea1b5b07d5b0", "def1131e4bd13eae", "7f9e8aa65496194d"],MEM={};
+function get(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return MEM[k]!==undefined?MEM[k]:d}}
+function set(k,v){MEM[k]=v;try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+function saveRes(n,b){var r=get("redeem",null);if(r){r.res={n:n,b:b};set("redeem",r)}}
+function render(name,best){P.style.width="100%";
  V.innerHTML='<p class="tag">你的结果</p><h1>'+T[best]+'</h1><div class="ph"><img id="im" alt=""></div>'+
  '<p><button class="btn" id="sv">保存图片</button> <button class="btn2" id="r">再测一次</button></p>'+
  '<p class="dim">如果点保存后打开了新页面，长按图片选择“保存”即可。</p>';
@@ -84,7 +92,25 @@ function result(){
  document.getElementById("sv").onclick=function(){
   var go=function(ext){var a=document.createElement("a");a.href="wallpapers/"+name+"."+ext;a.download=name+"."+ext;document.body.appendChild(a);a.click();a.remove()};
   fetch("wallpapers/"+name+".png",{method:"HEAD"}).then(function(r){go(r.ok?"png":"jpg")}).catch(function(){go("jpg")})};
- document.getElementById("r").onclick=function(){i=0;A=[];ord=[];show()};
+ document.getElementById("r").onclick=function(){i=0;A=[];ord=[];gate()};
 }
-show();
+async function H(c){var b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(c+"|wp"));return Array.from(new Uint8Array(b)).slice(0,8).map(function(x){return("0"+x.toString(16)).slice(-2)}).join("")}
+function gmsg(t){document.getElementById("gm").textContent=t}
+function gate(){P.style.width="0";
+ V.innerHTML='<p class="tag">兑换码</p><h1>输入兑换码，开始测试</h1><input id="cd" class="inp" placeholder="请输入兑换码" autocapitalize="characters" autocomplete="off"><p class="dim" id="gm">购买后会收到兑换码。一个兑换码对应一次测试，24 小时内可重复查看和保存结果。</p><button class="btn" id="go">开始</button>';
+ document.getElementById("go").onclick=tryCode}
+async function tryCode(){
+ var c=document.getElementById("cd").value.trim().toUpperCase().replace(/[\s-]/g,"");
+ var f=get("fail",{n:0,t:0}),now=Date.now();
+ if(now-f.t>3e5)f={n:0,t:0};
+ if(f.n>=5)return gmsg("尝试次数过多，请 5 分钟后再试");
+ var h=await H(c);
+ if(HS.indexOf(h)<0){f.n++;f.t=now;set("fail",f);return gmsg("兑换码不正确，请检查后再试")}
+ var u=get("used",[]),r=get("redeem",null);
+ if(u.indexOf(h)>-1){if(r&&r.h===h&&now-r.t<864e5)return start();return gmsg("这个兑换码已经使用过了")}
+ u.push(h);set("used",u);set("redeem",{h:h,t:now});set("fail",{n:0,t:0});start()}
+function start(){var r=get("redeem",null);
+ if(r&&Date.now()-r.t<864e5){if(r.res)return render(r.res.n,r.res.b);i=0;A=[];ord=[];return show()}
+ gate()}
+start();
 </script></body></html>
